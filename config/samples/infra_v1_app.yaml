@@ -1,0 +1,24 @@
+apiVersion: infra.iohub.me/v1
+kind: App
+metadata:
+  name: app-sample
+spec:
+  name: app-sample
+  image: nginx
+  unit: red
+  tag: "1.19"
+  replicas: 1
+  health: /
+  language: html
+  path: /
+  memoryReq: 100Mi
+  memoryLimit: 200Mi
+  enableSvc: true
+  initialDelaySeconds: 10
+  postStart: "http://www.baidu.com"
+  preStop: "http://www.163.com"
+  ports:
+    - name: web
+      servicePort: 80
+      containerPort: 80
+      protocol: TCP

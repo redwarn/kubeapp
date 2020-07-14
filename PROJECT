@@ -1,0 +1,7 @@
+domain: iohub.me
+repo: kubeapp
+resources:
+- group: infra
+  kind: App
+  version: v1
+version: "2"

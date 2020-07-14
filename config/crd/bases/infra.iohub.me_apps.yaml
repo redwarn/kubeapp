@@ -1,0 +1,134 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.5
+  creationTimestamp: null
+  name: apps.infra.iohub.me
+spec:
+  group: infra.iohub.me
+  names:
+    kind: App
+    listKind: AppList
+    plural: apps
+    singular: app
+  scope: Namespaced
+  validation:
+    openAPIV3Schema:
+      description: App is the Schema for the apps API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: AppSpec defines the desired state of App
+          properties:
+            cpuLimit:
+              type: string
+            cpuReq:
+              type: string
+            domain:
+              type: string
+            enableSvc:
+              type: boolean
+            env:
+              additionalProperties:
+                type: string
+              type: object
+            health:
+              type: string
+            image:
+              type: string
+            initialDelaySeconds:
+              format: int32
+              type: integer
+            language:
+              type: string
+            memoryLimit:
+              type: string
+            memoryReq:
+              type: string
+            metrics:
+              type: string
+            name:
+              type: string
+            path:
+              type: string
+            ports:
+              items:
+                properties:
+                  containerPort:
+                    format: int32
+                    type: integer
+                  name:
+                    type: string
+                  protocol:
+                    type: string
+                  servicePort:
+                    format: int32
+                    type: integer
+                type: object
+              type: array
+            postStart:
+              type: string
+            preStop:
+              type: string
+            replicas:
+              format: int32
+              type: integer
+            tag:
+              type: string
+            unit:
+              type: string
+          required:
+          - name
+          type: object
+        status:
+          description: AppStatus defines the observed state of App
+          properties:
+            availableReplicas:
+              format: int32
+              type: integer
+            ready:
+              type: boolean
+            readyReplicas:
+              format: int32
+              type: integer
+            replicas:
+              description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                of cluster Important: Run "make" to regenerate code after modifying
+                this file'
+              format: int32
+              type: integer
+            status:
+              type: string
+            unavailableReplicas:
+              format: int32
+              type: integer
+            updatedReplicas:
+              format: int32
+              type: integer
+          type: object
+      type: object
+  version: v1
+  versions:
+  - name: v1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
