@@ -30,6 +30,7 @@ import (
 	"kubeapp/controllers"
 
 	"github.com/containous/traefik/v2/pkg/provider/kubernetes/crd/traefik/v1alpha1"
+	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -46,6 +47,7 @@ func init() {
 
 	_ = v1alpha1.AddToScheme(scheme)
 
+	_ = monitoringv1.AddToScheme(scheme)
 }
 
 func main() {

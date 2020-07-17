@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/containous/traefik/v2 v2.2.5
-	github.com/coreos/prometheus-operator v0.34.0
+	github.com/coreos/prometheus-operator v0.40.0
 	github.com/go-logr/logr v0.1.0
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/onsi/ginkgo v1.11.0
@@ -14,8 +14,8 @@ require (
 	golang.org/x/sys v0.0.0-20200625212154-ddb9806d33ae // indirect
 	golang.org/x/text v0.3.3 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
-	k8s.io/api v0.18.3
-	k8s.io/apimachinery v0.18.5
+	k8s.io/api v0.18.6
+	k8s.io/apimachinery v0.18.6
 	k8s.io/client-go v12.0.0+incompatible
 	sigs.k8s.io/controller-runtime v0.5.0
 )

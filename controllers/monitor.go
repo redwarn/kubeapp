@@ -70,6 +70,7 @@ func genPodMonitor(app *infrav1.App) *monitoringv1.PodMonitor {
 			Name:      app.Name,
 			Labels: map[string]string{
 				"team": "biz-app",
+				"app":  app.Name,
 			},
 		},
 		Spec: monitoringv1.PodMonitorSpec{

@@ -15,8 +15,13 @@ spec:
   memoryLimit: 200Mi
   initialDelaySeconds: 10
   preStop: "http://www.163.com"
+  metrics: /metrics
   ports:
     - name: web
+      servicePort: 80
+      containerPort: 80
+      protocol: TCP
+    - name: metrics
       servicePort: 80
       containerPort: 80
       protocol: TCP
