@@ -51,16 +51,28 @@ spec:
             image:
               type: string
             initialDelaySeconds:
+              description: Template            corev1.PodTemplateSpec   `json:"template,omitempty"`
               format: int32
               type: integer
-            language:
-              type: string
             memoryLimit:
               type: string
             memoryReq:
               type: string
             metrics:
               type: string
+            middlewares:
+              items:
+                description: MiddlewareRef is a ref to the Middleware resources.
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+              type: array
             name:
               type: string
             path:
@@ -92,33 +104,21 @@ spec:
             unit:
               type: string
           required:
+          - image
+          - initialDelaySeconds
           - name
           type: object
         status:
           description: AppStatus defines the observed state of App
           properties:
-            availableReplicas:
-              format: int32
-              type: integer
             ready:
-              type: boolean
-            readyReplicas:
-              format: int32
-              type: integer
-            replicas:
               description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
                 of cluster Important: Run "make" to regenerate code after modifying
-                this file'
-              format: int32
-              type: integer
-            status:
-              type: string
-            unavailableReplicas:
-              format: int32
-              type: integer
-            updatedReplicas:
-              format: int32
-              type: integer
+                this file Replicas            int32  `json:"replicas,omitempty"` ReadyReplicas       int32  `json:"readyReplicas,omitempty"`
+                UpdatedReplicas     int32  `json:"updatedReplicas,omitempty"` AvailableReplicas   int32  `json:"availableReplicas,omitempty"`
+                UnavailableReplicas int32  `json:"unavailableReplicas,omitempty"`
+                Status              string `json:"status,omitempty"` // running stoping'
+              type: boolean
           type: object
       type: object
   version: v1

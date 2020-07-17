@@ -22,12 +22,12 @@ var (
 )
 
 func (r *AppReconciler) reconcileDeployMent(app *infrav1.App) error {
-	log := r.Log.WithValues("app-deploy", app.Namespace)
+	log := r.Log
 
 	deploy := r.genDeployment(app)
 
 	if err := controllerutil.SetControllerReference(app, deploy, r.Scheme); err != nil {
-		log.Error(err, "Set App ControllerReference Error", "name", app.Name)
+		log.Error(err, "set App ControllerReference Error")
 		return err
 	}
 
@@ -35,22 +35,22 @@ func (r *AppReconciler) reconcileDeployMent(app *infrav1.App) error {
 	err := r.Get(context.TODO(), types.NamespacedName{Name: deploy.Name, Namespace: deploy.Namespace}, found)
 
 	if err != nil && apierrs.IsNotFound(err) {
-		log.Info("Deployment NotFound and Creating new one", "name", deploy.Name)
+		log.Info("deployment NotFound and Creating new one", "name", deploy.Name)
 		if err = r.Create(context.TODO(), deploy); err != nil {
 			return err
 		}
 
 	} else if err != nil {
 
-		log.Error(err, "Get Deployment info Error", "name", deploy.Name)
+		log.Error(err, "get Deployment info Error", "name", deploy.Name)
 		return err
 
-	} else if !reflect.DeepEqual(deploy.Spec, found.Spec) {
+	} else if !reflect.DeepEqual(deploy.Spec.Template, found.Spec.Template) {
 
 		// Update the found object and write the result back if there are any changes
 		found.Spec = deploy.Spec
 		found.ResourceVersion = ""
-		log.Info("Old deployment changed and Updating Deployment to reconcile", "name", deploy.Name)
+		log.Info("old deployment changed and Updating Deployment to reconcile", "name", deploy.Name)
 		err = r.Update(context.TODO(), found)
 		if err != nil {
 			return err
@@ -62,11 +62,9 @@ func (r *AppReconciler) reconcileDeployMent(app *infrav1.App) error {
 func (r *AppReconciler) genDeployment(app *infrav1.App) *appsv1.Deployment {
 	labels := map[string]string{
 		"app":  app.Spec.Name,
-		"unit": defaultUnit,
+		"unit": app.Spec.Unit,
 	}
-	if app.Spec.Unit != "" {
-		labels["unit"] = app.Spec.Unit
-	}
+
 	if app.Spec.Tag == "" {
 		app.Spec.Tag = "latest"
 	}
@@ -76,6 +74,14 @@ func (r *AppReconciler) genDeployment(app *infrav1.App) *appsv1.Deployment {
 	for k, v := range app.Spec.Env {
 		envs = append(envs, v1.EnvVar{Name: k, Value: v, ValueFrom: nil})
 	}
+	envs = append(envs, v1.EnvVar{
+		Name: "MEMORY",
+		ValueFrom: &v1.EnvVarSource{
+			ResourceFieldRef: &v1.ResourceFieldSelector{
+				ContainerName: app.Spec.Name,
+				Resource:      string(v1.ResourceRequestsMemory)},
+		},
+	})
 	for _, p := range app.Spec.Ports {
 		ports = append(ports, v1.ContainerPort{
 			Name:          p.Name,
@@ -159,10 +165,10 @@ func (r *AppReconciler) genDeployment(app *infrav1.App) *appsv1.Deployment {
 	return deploy
 }
 
-func getBizPort(app *infrav1.App) intstr.IntOrString {
+func getPort(app *infrav1.App, portName string) intstr.IntOrString {
 	var port intstr.IntOrString
 	for _, p := range app.Spec.Ports {
-		if p.Name == bizPortName {
+		if p.Name == portName {
 			port = intstr.FromInt(int(p.ContainerPort))
 		}
 	}
@@ -206,7 +212,7 @@ func setResource(deployment *appsv1.Deployment, app *infrav1.App) {
 	deployment.Spec.Template.Spec.Containers[idx].Resources = Resources
 }
 func setLifecycle(deployment *appsv1.Deployment, app *infrav1.App) {
-	port := getBizPort(app)
+	port := getPort(app, bizPortName)
 	Lifecycle := &v1.Lifecycle{}
 	if app.Spec.PreStop != "" {
 		Lifecycle.PreStop = &v1.Handler{
@@ -231,7 +237,7 @@ func setLifecycle(deployment *appsv1.Deployment, app *infrav1.App) {
 }
 
 func setProbe(deployment *appsv1.Deployment, app *infrav1.App) {
-	port := getBizPort(app)
+	port := getPort(app, bizPortName)
 	var LivenessProbe, ReadinessProbe *v1.Probe
 	if app.Spec.Health != "" {
 		LivenessProbe = &v1.Probe{

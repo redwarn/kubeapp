@@ -21,6 +21,7 @@ limitations under the License.
 package v1
 
 import (
+	"github.com/containous/traefik/v2/pkg/provider/kubernetes/crd/traefik/v1alpha1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -96,6 +97,11 @@ func (in *AppSpec) DeepCopyInto(out *AppSpec) {
 	if in.Ports != nil {
 		in, out := &in.Ports, &out.Ports
 		*out = make([]Ports, len(*in))
+		copy(*out, *in)
+	}
+	if in.Middlewares != nil {
+		in, out := &in.Middlewares, &out.Middlewares
+		*out = make([]v1alpha1.MiddlewareRef, len(*in))
 		copy(*out, *in)
 	}
 }

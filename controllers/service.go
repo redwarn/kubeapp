@@ -10,36 +10,42 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/intstr"
+	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 )
 
 func (r *AppReconciler) reconcileService(app *infrav1.App) error {
-	log := r.Log.WithValues("app-svc", app.Namespace)
+	log := r.Log
 
 	if app.Spec.Domain == "" && !app.Spec.EnableSvc {
 		return nil
 	}
 
 	svc := r.genService(app)
+	if err := controllerutil.SetControllerReference(app, svc, r.Scheme); err != nil {
+		log.Error(err, "Set App ControllerReference Error")
+		return err
+	}
 
 	found := &v1.Service{}
-	err := r.Get(context.TODO(), types.NamespacedName{Name: svc.Name, Namespace: svc.Namespace}, found)
+	err := r.Get(context.TODO(), types.NamespacedName{Name: app.Name, Namespace: app.Namespace}, found)
 
 	if err != nil && apierrs.IsNotFound(err) {
-		log.Info("Service NotFound and Creating new one", "namespace", svc.Namespace, "name", app.Name)
+		log.Info("Service NotFound and Creating new one")
 		if err = r.Create(context.TODO(), svc); err != nil {
 			return err
 		}
 
 	} else if err != nil {
 
-		log.Error(err, "Get svc info Error", "name", app.Name)
+		log.Error(err, "Get svc info Error")
 		return err
 
 	} else if !reflect.DeepEqual(svc.Spec, found.Spec) {
-
+		clusterIP := found.Spec.ClusterIP
 		// Update the found object and write the result back if there are any changes
 		found.Spec = svc.Spec
-		log.Info("Old svc changed and Updating svc to reconcile", "name", app.Name)
+		found.Spec.ClusterIP = clusterIP
+		log.Info("old svc changed and Updating svc to reconcile", "name", svc.Name)
 		err = r.Update(context.TODO(), found)
 		if err != nil {
 			return err
@@ -73,10 +79,11 @@ func (r *AppReconciler) genService(app *infrav1.App) *v1.Service {
 			Labels:    labels,
 		},
 		Spec: v1.ServiceSpec{
-			Selector:  labels,
-			Ports:     ports,
-			ClusterIP: "",
-			Type:      v1.ServiceTypeClusterIP,
+			Selector:        labels,
+			Ports:           ports,
+			ClusterIP:       "",
+			Type:            v1.ServiceTypeClusterIP,
+			SessionAffinity: v1.ServiceAffinityNone,
 		},
 	}
 }

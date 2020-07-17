@@ -66,3 +66,143 @@ rules:
   - get
   - patch
   - update
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - ingressroutes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - ingressroutes/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - ingressroutetcps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - ingressroutetcps/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - ingressrouteudps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - ingressrouteudps/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - middlewares
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - middlewares/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - tlsoptions
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - tlsoptions/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - tlsstores
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - tlsstores/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - traefikservices
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - traefikservices/status
+  verbs:
+  - get
+  - patch
+  - update

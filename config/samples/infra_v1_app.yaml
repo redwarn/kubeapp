@@ -9,13 +9,11 @@ spec:
   tag: "1.19"
   replicas: 1
   health: /
-  language: html
   path: /
+  domain: "test.iohub.me,test.oriente.com"
   memoryReq: 100Mi
   memoryLimit: 200Mi
-  enableSvc: true
   initialDelaySeconds: 10
-  postStart: "http://www.baidu.com"
   preStop: "http://www.163.com"
   ports:
     - name: web

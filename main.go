@@ -28,6 +28,8 @@ import (
 
 	infrav1 "kubeapp/api/v1"
 	"kubeapp/controllers"
+
+	"github.com/containous/traefik/v2/pkg/provider/kubernetes/crd/traefik/v1alpha1"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -41,6 +43,9 @@ func init() {
 
 	_ = infrav1.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
+
+	_ = v1alpha1.AddToScheme(scheme)
+
 }
 
 func main() {
