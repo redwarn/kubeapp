@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"context"
-	infrav1 "kubeapp/api/v1"
+	infrav1 "github.com/redwarn/kubeapp/api/v1"
 	"reflect"
 
 	appsv1 "k8s.io/api/apps/v1"

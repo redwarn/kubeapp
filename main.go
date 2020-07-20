@@ -26,8 +26,8 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	infrav1 "kubeapp/api/v1"
-	"kubeapp/controllers"
+	infrav1 "github.com/redwarn/kubeapp/api/v1"
+	"github.com/redwarn/kubeapp/controllers"
 
 	"github.com/containous/traefik/v2/pkg/provider/kubernetes/crd/traefik/v1alpha1"
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"

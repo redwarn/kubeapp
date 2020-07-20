@@ -3,7 +3,7 @@ package controllers
 import (
 	"context"
 	"fmt"
-	infrav1 "kubeapp/api/v1"
+	infrav1 "github.com/redwarn/kubeapp/api/v1"
 	"reflect"
 	"strings"
 

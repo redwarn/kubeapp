@@ -2,7 +2,8 @@ package controllers
 
 import (
 	"context"
-	infrav1 "kubeapp/api/v1"
+	infrav1 "github.com/redwarn/kubeapp/api/v1"
+
 	"reflect"
 
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"

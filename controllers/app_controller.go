@@ -28,7 +28,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	infrav1 "kubeapp/api/v1"
+	infrav1 "github.com/redwarn/kubeapp/api/v1"
 )
 
 // AppReconciler reconciles a App object
