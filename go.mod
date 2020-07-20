@@ -1,4 +1,4 @@
-module kubeapp
+module github.com/redwarn/kubeapp
 
 go 1.14
 
@@ -20,11 +20,11 @@ require (
 )
 
 replace (
- 	github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200204220554-5f6d6f3f2203
+	github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200204220554-5f6d6f3f2203
 	k8s.io/api => k8s.io/api v0.17.2
 	k8s.io/apimachinery => k8s.io/apimachinery v0.17.2
 	k8s.io/client-go => k8s.io/client-go v0.17.2
- )
+)
 
 replace (
 	github.com/abbot/go-http-auth => github.com/containous/go-http-auth v0.4.1-0.20200324110947-a37a7636d23e
