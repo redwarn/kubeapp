@@ -249,7 +249,7 @@ func setProbe(deployment *appsv1.Deployment, app *infrav1.App) {
 				},
 			},
 			InitialDelaySeconds: app.Spec.InitialDelaySeconds,
-			TimeoutSeconds:      3,
+			TimeoutSeconds:      5,
 			SuccessThreshold:    1,
 			FailureThreshold:    5,
 		}
@@ -263,7 +263,7 @@ func setProbe(deployment *appsv1.Deployment, app *infrav1.App) {
 				},
 			},
 			InitialDelaySeconds: app.Spec.InitialDelaySeconds,
-			TimeoutSeconds:      5,
+			TimeoutSeconds:      3,
 			SuccessThreshold:    1,
 			FailureThreshold:    3,
 		}
