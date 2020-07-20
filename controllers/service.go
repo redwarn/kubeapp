@@ -15,12 +15,8 @@ import (
 
 func (r *AppReconciler) reconcileService(app *infrav1.App) error {
 	log := r.Log
-
-	if app.Spec.Domain == "" && !app.Spec.EnableSvc {
-		return nil
-	}
-
 	svc := r.genService(app)
+
 	if err := controllerutil.SetControllerReference(app, svc, r.Scheme); err != nil {
 		log.Error(err, "Set App ControllerReference Error")
 		return err

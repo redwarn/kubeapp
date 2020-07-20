@@ -36,31 +36,28 @@ type AppSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	Name        string            `json:"name"`
-	Unit        string            `json:"unit,omitempty"`
-	Image       string            `json:"image"`
-	Tag         string            `json:"tag,omitempty"`
-	Replicas    int32             `json:"replicas,omitempty"`
-	Health      string            `json:"health,omitempty"`
-	Metrics     string            `json:"metrics,omitempty"`
-	Domain      string            `json:"domain,omitempty"`
-	Path        string            `json:"path,omitempty"`
-	MemoryReq   string            `json:"memoryReq,omitempty"`
-	MemoryLimit string            `json:"memoryLimit,omitempty"`
-	CpuReq      string            `json:"cpuReq,omitempty"`
-	CpuLimit    string            `json:"cpuLimit,omitempty"`
-	PostStart   string            `json:"postStart,omitempty"`
-	PreStop     string            `json:"preStop,omitempty"`
-	Env         map[string]string `json:"env,omitempty"`
-	EnableSvc   bool              `json:"enableSvc,omitempty"`
-	Ports       []Ports           `json:"ports,omitempty"`
-	// Template            corev1.PodTemplateSpec   `json:"template,omitempty"`
+	Name                string                   `json:"name"`
+	Unit                string                   `json:"unit,omitempty"`
+	Image               string                   `json:"image"`
+	Tag                 string                   `json:"tag,omitempty"`
+	Replicas            int32                    `json:"replicas,omitempty"`
+	Health              string                   `json:"health,omitempty"`
+	Metrics             string                   `json:"metrics,omitempty"`
+	Domain              string                   `json:"domain,omitempty"`
+	Path                string                   `json:"path,omitempty"`
+	MemoryReq           string                   `json:"memoryReq,omitempty"`
+	MemoryLimit         string                   `json:"memoryLimit,omitempty"`
+	CpuReq              string                   `json:"cpuReq,omitempty"`
+	CpuLimit            string                   `json:"cpuLimit,omitempty"`
+	PostStart           string                   `json:"postStart,omitempty"`
+	PreStop             string                   `json:"preStop,omitempty"`
+	Env                 map[string]string        `json:"env,omitempty"`
+	Ports               []Ports                  `json:"ports,omitempty"`
 	InitialDelaySeconds int32                    `json:"initialDelaySeconds"`
 	Middlewares         []v1alpha1.MiddlewareRef `json:"middlewares,omitempty"`
 }
 
 // AppStatus defines the observed state of App
-// +kubebuilder:subresource:status
 type AppStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
