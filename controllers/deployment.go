@@ -2,8 +2,9 @@ package controllers
 
 import (
 	"context"
-	infrav1 "github.com/redwarn/kubeapp/api/v1"
 	"reflect"
+
+	infrav1 "github.com/redwarn/kubeapp/api/v1"
 
 	appsv1 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
@@ -186,26 +187,26 @@ func getBizContainerIndex(deployment *appsv1.Deployment, app *infrav1.App) int {
 func setResource(deployment *appsv1.Deployment, app *infrav1.App) {
 
 	Resources := v1.ResourceRequirements{}
-	if app.Spec.CpuReq != "" {
+	if app.Spec.Resource.RequestCpu != "" {
 		Resources.Requests = v1.ResourceList{
-			v1.ResourceCPU: resource.MustParse(app.Spec.CpuReq),
+			v1.ResourceCPU: resource.MustParse(app.Spec.Resource.RequestCpu),
 		}
 	}
-	if app.Spec.MemoryReq != "" {
+	if app.Spec.Resource.RequestMemory != "" {
 		Resources.Requests = v1.ResourceList{
-			v1.ResourceMemory: resource.MustParse(app.Spec.MemoryReq),
+			v1.ResourceMemory: resource.MustParse(app.Spec.Resource.RequestMemory),
 		}
 	}
 
-	if app.Spec.CpuLimit != "" {
+	if app.Spec.Resource.LimitCpu != "" {
 		Resources.Limits = v1.ResourceList{
-			v1.ResourceCPU: resource.MustParse(app.Spec.CpuLimit),
+			v1.ResourceCPU: resource.MustParse(app.Spec.Resource.LimitCpu),
 		}
 	}
 
-	if app.Spec.MemoryLimit != "" {
+	if app.Spec.Resource.LimitMemory != "" {
 		Resources.Limits = v1.ResourceList{
-			v1.ResourceMemory: resource.MustParse(app.Spec.MemoryLimit),
+			v1.ResourceMemory: resource.MustParse(app.Spec.Resource.LimitMemory),
 		}
 	}
 	idx := getBizContainerIndex(deployment, app)

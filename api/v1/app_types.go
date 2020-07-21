@@ -30,6 +30,12 @@ type Ports struct {
 	ServicePort   int32  `json:"servicePort,omitempty"`
 	ContainerPort int32  `json:"containerPort,omitempty"`
 }
+type Resource struct {
+	LimitCpu      string `json:"limit_cpu,omitempty"`
+	LimitMemory   string `json:"limit_memory,omitempty"`
+	RequestCpu    string `json:"request_cpu,omitempty"`
+	RequestMemory string `json:"request_memory,omitempty"`
+}
 
 // AppSpec defines the desired state of App
 type AppSpec struct {
@@ -45,13 +51,10 @@ type AppSpec struct {
 	Metrics             string                   `json:"metrics,omitempty"`
 	Domain              string                   `json:"domain,omitempty"`
 	Path                string                   `json:"path,omitempty"`
-	MemoryReq           string                   `json:"memoryReq,omitempty"`
-	MemoryLimit         string                   `json:"memoryLimit,omitempty"`
-	CpuReq              string                   `json:"cpuReq,omitempty"`
-	CpuLimit            string                   `json:"cpuLimit,omitempty"`
 	PostStart           string                   `json:"postStart,omitempty"`
 	PreStop             string                   `json:"preStop,omitempty"`
 	Env                 map[string]string        `json:"env,omitempty"`
+	Resource            Resource                 `json:"resource,omitempty"`
 	Ports               []Ports                  `json:"ports,omitempty"`
 	InitialDelaySeconds int32                    `json:"initialDelaySeconds"`
 	Middlewares         []v1alpha1.MiddlewareRef `json:"middlewares,omitempty"`
