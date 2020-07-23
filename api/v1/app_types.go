@@ -54,7 +54,7 @@ type AppSpec struct {
 	PostStart           string                   `json:"postStart,omitempty"`
 	PreStop             string                   `json:"preStop,omitempty"`
 	Env                 map[string]string        `json:"env,omitempty"`
-	Resource            *Resource                `json:"resource,omitempty"`
+	Resource            Resource                 `json:"resource,omitempty"`
 	Ports               []Ports                  `json:"ports,omitempty"`
 	InitialDelaySeconds int32                    `json:"initialDelaySeconds,omitempty"`
 	Middlewares         []v1alpha1.MiddlewareRef `json:"middlewares,omitempty"`
