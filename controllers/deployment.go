@@ -188,26 +188,19 @@ func setResource(deployment *appsv1.Deployment, app *infrav1.App) {
 
 	Resources := v1.ResourceRequirements{}
 	if app.Spec.Resource.RequestCpu != "" {
-		Resources.Requests = v1.ResourceList{
-			v1.ResourceCPU: resource.MustParse(app.Spec.Resource.RequestCpu),
-		}
+		Resources.Requests[v1.ResourceCPU]=resource.MustParse(app.Spec.Resource.RequestCpu)
 	}
+	
 	if app.Spec.Resource.RequestMemory != "" {
-		Resources.Requests = v1.ResourceList{
-			v1.ResourceMemory: resource.MustParse(app.Spec.Resource.RequestMemory),
-		}
+		Resources.Requests[v1.ResourceMemory]= resource.MustParse(app.Spec.Resource.RequestMemory)
 	}
 
 	if app.Spec.Resource.LimitCpu != "" {
-		Resources.Limits = v1.ResourceList{
-			v1.ResourceCPU: resource.MustParse(app.Spec.Resource.LimitCpu),
-		}
+		Resources.Limits[v1.ResourceCPU]=resource.MustParse(app.Spec.Resource.LimitCpu)
 	}
 
 	if app.Spec.Resource.LimitMemory != "" {
-		Resources.Limits = v1.ResourceList{
-			v1.ResourceMemory: resource.MustParse(app.Spec.Resource.LimitMemory),
-		}
+		Resources.Limits[v1.ResourceMemory]=resource.MustParse(app.Spec.Resource.LimitMemory)
 	}
 	idx := getBizContainerIndex(deployment, app)
 	deployment.Spec.Template.Spec.Containers[idx].Resources = Resources
