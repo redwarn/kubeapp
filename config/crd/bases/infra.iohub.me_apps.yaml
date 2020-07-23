@@ -34,14 +34,8 @@ spec:
         spec:
           description: AppSpec defines the desired state of App
           properties:
-            cpuLimit:
-              type: string
-            cpuReq:
-              type: string
             domain:
               type: string
-            enableSvc:
-              type: boolean
             env:
               additionalProperties:
                 type: string
@@ -51,13 +45,8 @@ spec:
             image:
               type: string
             initialDelaySeconds:
-              description: Template            corev1.PodTemplateSpec   `json:"template,omitempty"`
               format: int32
               type: integer
-            memoryLimit:
-              type: string
-            memoryReq:
-              type: string
             metrics:
               type: string
             middlewares:
@@ -99,13 +88,22 @@ spec:
             replicas:
               format: int32
               type: integer
+            resource:
+              properties:
+                limit_cpu:
+                  type: string
+                limit_memory:
+                  type: string
+                request_cpu:
+                  type: string
+                request_memory:
+                  type: string
+              type: object
             tag:
               type: string
             unit:
               type: string
           required:
-          - image
-          - initialDelaySeconds
           - name
           type: object
         status:

@@ -41,7 +41,7 @@ type Resource struct {
 type AppSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
+	
 	Name                string                   `json:"name"`
 	Unit                string                   `json:"unit,omitempty"`
 	Image               string                   `json:"image,omitempty"`
@@ -54,9 +54,9 @@ type AppSpec struct {
 	PostStart           string                   `json:"postStart,omitempty"`
 	PreStop             string                   `json:"preStop,omitempty"`
 	Env                 map[string]string        `json:"env,omitempty"`
-	Resource            *Resource                 `json:"resource,omitempty"`
+	Resource            *Resource                `json:"resource,omitempty"`
 	Ports               []Ports                  `json:"ports,omitempty"`
-	InitialDelaySeconds int32                    `json:"initialDelaySeconds，omitempty"`
+	InitialDelaySeconds int32                    `json:"initialDelaySeconds,omitempty"`
 	Middlewares         []v1alpha1.MiddlewareRef `json:"middlewares,omitempty"`
 }
 
@@ -78,7 +78,7 @@ type AppStatus struct {
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-
+	
 	Spec   AppSpec   `json:"spec,omitempty"`
 	Status AppStatus `json:"status,omitempty"`
 }
