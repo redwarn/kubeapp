@@ -186,7 +186,10 @@ func getBizContainerIndex(deployment *appsv1.Deployment, app *infrav1.App) int {
 }
 func setResource(deployment *appsv1.Deployment, app *infrav1.App) {
 
-	Resources := v1.ResourceRequirements{}
+	Resources := v1.ResourceRequirements{
+		Limits:  v1.ResourceList{},
+		Requests: v1.ResourceList{},
+	}
 	if app.Spec.Resource.RequestCpu != "" {
 		Resources.Requests[v1.ResourceCPU]=resource.MustParse(app.Spec.Resource.RequestCpu)
 	}
