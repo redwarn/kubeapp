@@ -44,7 +44,7 @@ type AppSpec struct {
 
 	Name                string                   `json:"name"`
 	Unit                string                   `json:"unit,omitempty"`
-	Image               string                   `json:"image"`
+	Image               string                   `json:"image,omitempty"`
 	Tag                 string                   `json:"tag,omitempty"`
 	Replicas            int32                    `json:"replicas,omitempty"`
 	Health              string                   `json:"health,omitempty"`
@@ -54,9 +54,9 @@ type AppSpec struct {
 	PostStart           string                   `json:"postStart,omitempty"`
 	PreStop             string                   `json:"preStop,omitempty"`
 	Env                 map[string]string        `json:"env,omitempty"`
-	Resource            Resource                 `json:"resource,omitempty"`
+	Resource            *Resource                 `json:"resource,omitempty"`
 	Ports               []Ports                  `json:"ports,omitempty"`
-	InitialDelaySeconds int32                    `json:"initialDelaySeconds"`
+	InitialDelaySeconds int32                    `json:"initialDelaySeconds，omitempty"`
 	Middlewares         []v1alpha1.MiddlewareRef `json:"middlewares,omitempty"`
 }
 
