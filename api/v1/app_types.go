@@ -31,10 +31,10 @@ type Ports struct {
 	ContainerPort int32  `json:"containerPort,omitempty"`
 }
 type Resource struct {
-	LimitCpu      string `json:"limit_cpu,omitempty"`
-	LimitMemory   string `json:"limit_memory,omitempty"`
-	RequestCpu    string `json:"request_cpu,omitempty"`
-	RequestMemory string `json:"request_memory,omitempty"`
+	LimitCpu      string `json:"limitCpu,omitempty"`
+	LimitMemory   string `json:"limitMemory,omitempty"`
+	RequestCpu    string `json:"requestCpu,omitempty"`
+	RequestMemory string `json:"requestMemory,omitempty"`
 }
 
 // AppSpec defines the desired state of App
